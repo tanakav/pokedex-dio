@@ -3,7 +3,7 @@ import {
 	requestInterceptor,
 	responseSuccessInterceptor,
 	responseErrorInterceptor,
-} from './interceptors';
+} from './interceptor';
 
 function Factory(baseURL) {
 	const instance = axios.create({

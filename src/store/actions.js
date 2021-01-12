@@ -1,7 +1,7 @@
 import PokeAPI from '@/services/pokeapi';
 
 import state from './state';
-import mutation from './mutations';
+import mutations from './mutations';
 
 export default {
     async getPokemons() {
