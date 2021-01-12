@@ -1,11 +1,11 @@
 import state from './state';
+import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
-import getters from './getters';
 
 export {
-    state,
-    mutations,
-    actions,
-    getters
+	state,
+	getters,
+	mutations,
+	actions,
 };
