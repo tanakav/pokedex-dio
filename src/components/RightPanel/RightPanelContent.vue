@@ -1,18 +1,44 @@
 <template>
-  <form class="search">
+  <div class="search">
     <label for="search" class="search__label text--white bg--black">
-      <h3 class="search__label--text">E.g.: Charizard</h3>
-      <input id="search" type="text" class="search__input" />
+      <h3 class="search__label--text">E.g.: Charizard | 6</h3>
+      <input 
+      id="search" 
+      type="text" 
+      class="search__input" 
+      v-model.trim="name"
+      @keyup.enter="searchPokemon"
+      />
     </label>
-    <button class="search__button bg--gray text--yellow" @click.prevent>
+    <div class="buttons">
+      <button class="btn btn--clear" @click.prevent="clear">
+      Clear
+    </button>
+      <button class="btn btn--search bg--gray text--yellow" @click.prevent="searchPokemon">
       Search
     </button>
-  </form>
+    </div>
+  </div>
 </template>
 
 <script>
+import {actions, mutations} from '@/store';
 export default {
   name: "RightPanelContent",
+  data() {
+    return{
+      name: '',
+    }
+  },
+  methods:{
+    clear(){
+      this.name='';
+      mutations.resetList();
+    },
+    async searchPokemon(){
+      await actions.searchPokemon(this.name);
+    }
+  }
 };
 </script>
 
@@ -55,20 +81,35 @@ export default {
     }
   }
 
-  &__button {
-    align-self: flex-end;
-    width: 120px;
-    height: 50px;
-    border: 4px solid color(black);
+.buttons{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  .btn{
     border-radius: 8px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
 
-    @media (min-width: $viewport-medium) {
-      width: 160px;
-      height: 60px;
+    &--clear{
+      width: 80px;
+      padding: 8px;
+      margin-right: 15px;
+      border: none solid #000;
+    }
+
+    &--search{
+      width: 120px;
+      padding: 15px;
+      border: 4px solid #000;
+
+      @media(min-width: $viewport-medium){
+        width: 160px;
+      }
     }
   }
+}
+
 }
 </style>
