@@ -3,6 +3,7 @@
 		<p v-if="isSearching" class="list--message">Looking for the pokemon</p>
 		<p v-else-if="hasSearchError" class="list--message">We couldn't find this pokemon</p>
 		<ListItem v-else-if="isPokemonSearch" v-bind="pokemonsList[0]" />
+		<PokemonDescription v-else-if="pokemonId" :id="pokemonId" />
 		<template v-else>
 			<ListItem v-for="pokemon in pokemonsList" :key="pokemon.id" v-bind="pokemon" />
 			<infinite-loading @infinite="infiniteHandler" />
@@ -13,12 +14,14 @@
 <script>
 	import { state, getters, actions } from '@/store';
 
-	import ListItem from './ListItem.vue';
+	import ListItem from './ListItem';
+	import PokemonDescription from '@/components/PokemonDescription/PokemonDescription';
 
 	export default {
 		name: 'List',
 		components: {
 			ListItem,
+			PokemonDescription
 		},
 		computed: {
 			pokemonsList() {
@@ -33,6 +36,9 @@
 			hasSearchError() {
 				return state.searchHasError;
 			},
+			pokemonId(){
+				return state.pokemonId;
+			}
 		},
 		methods: {
 			async infiniteHandler($state) {
